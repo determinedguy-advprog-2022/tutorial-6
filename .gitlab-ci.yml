@@ -5,8 +5,8 @@ variables:
 
 before_script:
   - echo "Bismillah..."
-  - echo pwd
-  - export GRADLE_USER_HOME=pwd/.gradle
+  - echo $(pwd)
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
   # Remove caches
   - rm -f  .gradle/caches/modules-2/modules-2.lock
   - rm -fr .gradle/caches/*/plugin-resolution/
