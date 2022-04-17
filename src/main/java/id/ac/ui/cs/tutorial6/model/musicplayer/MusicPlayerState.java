@@ -3,7 +3,7 @@ package id.ac.ui.cs.tutorial6.model.musicplayer;
 public abstract class MusicPlayerState {
     protected MusicPlayer musicPlayer;
 
-    public MusicPlayerState(MusicPlayer musicPlayer) {
+    protected MusicPlayerState(MusicPlayer musicPlayer) {
         this.musicPlayer = musicPlayer;
     }
 

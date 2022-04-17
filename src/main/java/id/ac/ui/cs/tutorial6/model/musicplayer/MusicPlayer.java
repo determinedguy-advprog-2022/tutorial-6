@@ -2,8 +2,6 @@ package id.ac.ui.cs.tutorial6.model.musicplayer;
 
 import id.ac.ui.cs.tutorial6.model.playlist.Playlist;
 import id.ac.ui.cs.tutorial6.model.song.Song;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class MusicPlayer {
 
     PlayingState playingState = new PlayingState(this);
-    PauseState pauseState = new PauseState(this);;
+    PauseState pauseState = new PauseState(this);
     StopState stopState = new StopState(this);
     MusicPlayerState currentState;
     Playlist currentPlaylist;

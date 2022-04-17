@@ -16,7 +16,7 @@ public class SongServiceImpl implements SongService {
 
   @Override
   public Song createSong(String name, SongGenre genre) {
-    Song song = Song.builder()
+    var song = Song.builder()
                 .name(name)
                 .genre(genre)
                 .build();

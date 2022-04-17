@@ -7,7 +7,6 @@ import id.ac.ui.cs.tutorial6.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -23,7 +22,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
   @Override
   public Playlist createPlaylist(String name) {
-    Playlist playlist = Playlist.builder()
+    var playlist = Playlist.builder()
                         .name(name)
                         .build();
     return playlistRepository.save(playlist);
@@ -60,26 +59,25 @@ public class PlaylistServiceImpl implements PlaylistService {
   }
 
   public Playlist modifySongAtPlaylist(String idPlaylist, String[] idSongs, String activity) {
-    if (playlistRepository.getById(idPlaylist) != null) {
-      Set<Song> songsSet = playlistRepository.getById(idPlaylist).getSongsSet();
-      for (String id : idSongs) {
-        Song song = songRepository.findById(id).get();
+    Set<Song> songsSet = playlistRepository.getById(idPlaylist).getSongsSet();
+    for (String id : idSongs) {
+      Song song = songRepository.findById(id).orElse(null);
+      if (song != null) {
         if (activity.equals("add")) {
           songsSet.add(song);
         } else if (activity.equals("remove")) {
           songsSet.remove(song);
         }
       }
-      Playlist playlist = getPlaylistById(idPlaylist);
-      playlist.setSongsSet(songsSet);
-      return playlistRepository.save(playlist);
     }
-    return null;
+    var playlist = getPlaylistById(idPlaylist);
+    playlist.setSongsSet(songsSet);
+    return playlistRepository.save(playlist);
   }
 
   @Override
   public Playlist updatePlaylist(String id, Optional<String> nameOpt, Optional<Set<Song>> songsSetOpt) {
-    Playlist playlist = getPlaylistById(id);
+    var playlist = getPlaylistById(id);
     nameOpt.ifPresent(playlist::setName);
     songsSetOpt.ifPresent(playlist::setSongsSet);
     return playlistRepository.save(playlist);
