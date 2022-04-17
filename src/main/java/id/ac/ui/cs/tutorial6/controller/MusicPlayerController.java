@@ -65,7 +65,7 @@ public class MusicPlayerController {
     @GetMapping(value = "/add-playlist")
     public String createPlaylist(Model model) {
         model.addAttribute("newPlaylist", new Playlist());
-        return "form_playlist_or_song";
+        return "form_playlist";
     }
 
     @PostMapping(value = "/add-playlist")
@@ -78,7 +78,7 @@ public class MusicPlayerController {
     public String createSong(Model model) {
         model.addAttribute("genres", SongGenre.values());
         model.addAttribute("newSong", new Song());
-        return "form_playlist_or_song";
+        return "form_song";
     }
 
     @PostMapping(value = "/add-song")
