@@ -4,7 +4,7 @@ variables:
   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
 
 before_script:
-  - echo "Semoga hasil code yang di push akan berlajan dengan baik dan lancar."
+  - echo "Bismillah..."
   - echo pwd
   - export GRADLE_USER_HOME=pwd/.gradle
   # Remove caches
