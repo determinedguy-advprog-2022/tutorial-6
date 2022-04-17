@@ -1,11 +1,28 @@
-stages:
-  deploy
+image: gradle:7.4-jdk11-alpine
 
-deploy_development:
-only:
-  - development
-image: ruby:latest
-script:
-  - dpl --provider=heroku
-  --app=$HEROKU_APP_NAME
-  --api-key=$HEROKU_API_KEY
+variables:
+  GRADLE_OPTS: '-Dorg.gradle.daemon=false'
+
+before_script:
+  - echo "Semoga hasil code yang di push akan berlajan dengan baik dan lancar."
+  - echo pwd
+  - export GRADLE_USER_HOME=pwd/.gradle
+  # Remove caches
+  - rm -f  .gradle/caches/modules-2/modules-2.lock
+  - rm -fr .gradle/caches/*/plugin-resolution/
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  only:
+    - development
+  image: ruby:latest
+  before_script:
+    - gem install dpl
+    - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  script:
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+    - export HEROKU_API_KEY=$HEROKU_API_KEY
+    - heroku run --app $HEROKU_APP_NAME migrate
