@@ -1,6 +1,5 @@
 package id.ac.ui.cs.tutorial6.controller;
 
-import id.ac.ui.cs.tutorial6.model.musicplayer.MusicPlayer;
 import id.ac.ui.cs.tutorial6.model.musicplayer.MusicPlayerState;
 import id.ac.ui.cs.tutorial6.model.playlist.Playlist;
 import id.ac.ui.cs.tutorial6.model.song.Song;
