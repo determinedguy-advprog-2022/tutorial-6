@@ -51,22 +51,23 @@ public class PlaylistServiceImpl implements PlaylistService {
 
   @Override
   public Playlist addSongsToPlaylist(String idPlaylist, String[] idSongs) {
-    Set<Song> songsSet = playlistRepository.getById(idPlaylist).getSongsSet();
-    for (String id : idSongs) {
-      Song song = songRepository.findById(id).get();
-      songsSet.add(song);
-    }
-    Playlist playlist = getPlaylistById(idPlaylist);
-    playlist.setSongsSet(songsSet);
-    return playlistRepository.save(playlist);
+    return modifySongAtPlaylist(idPlaylist, idSongs, "add");
   }
 
   @Override
   public Playlist deleteSongFromPlaylist(String idPlaylist, String[] idSongs) {
+    return modifySongAtPlaylist(idPlaylist, idSongs, "remove");
+  }
+
+  public Playlist modifySongAtPlaylist(String idPlaylist, String[] idSongs, String activity) {
     Set<Song> songsSet = playlistRepository.getById(idPlaylist).getSongsSet();
     for (String id : idSongs) {
       Song song = songRepository.findById(id).get();
-      songsSet.remove(song);
+      if (activity.equals("add")) {
+        songsSet.add(song);
+      } else if (activity.equals("remove")) {
+        songsSet.remove(song);
+      }
     }
     Playlist playlist = getPlaylistById(idPlaylist);
     playlist.setSongsSet(songsSet);
