@@ -59,7 +59,7 @@ public class MusicPlayerController {
         var song = playlistService.getSongInPlaylist(playlist, songId);
 
         musicService.setting(playlist, song);
-        MusicPlayer musicPlayer = musicService.getMusicPlayer(state);
+        var musicPlayer = musicService.getMusicPlayer(state);
         MusicPlayerState currentState = musicPlayer.getCurrentState();
 
         model.addAttribute(PLAYLIST_STRING, playlist);
