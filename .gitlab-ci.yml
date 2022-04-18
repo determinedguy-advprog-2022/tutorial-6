@@ -4,19 +4,19 @@ variables:
   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
 
 before_script:
-  - echo "Bismillah..."
-  - echo $(pwd)
+  #- echo "Bismillah..."
+  #- echo $(pwd)
   - export GRADLE_USER_HOME=$(pwd)/.gradle
   # Remove caches
   - rm -f  .gradle/caches/modules-2/modules-2.lock
   - rm -fr .gradle/caches/*/plugin-resolution/
 
 stages:
-  - sonarqube-check
+  - test
   - deploy
 
 sonarqube-check:
-  stage: sonarqube-check
+  stage: test
   image: gradle:alpine
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
@@ -25,13 +25,13 @@ sonarqube-check:
     key: "${CI_JOB_NAME}"
     paths:
       - .sonar/cache
-  script: ./gradlew sonarqube -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.qualitygate.wait=true
+  script: gradle sonarqube -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.qualitygate.wait=true
   allow_failure: true
   only:
     - master
     - development
 
-deploy:
+deploy-heroku:
   stage: deploy
   only:
     - development
