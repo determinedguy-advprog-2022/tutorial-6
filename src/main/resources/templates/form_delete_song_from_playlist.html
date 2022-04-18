@@ -13,14 +13,14 @@
     <div class="container">
         <div class="row justify-content-md-center my-4">
             <div class="col-md-8">
-                <h5>Add Song to <span th:text="${playlist.getName()}"></span></h5>
-
-                <form th:action="@{/music-player/{id}/add-song(id=${playlist.getId()})}" method="post">
+                <h5>Delete Song from <span th:text="${playlist.getName()}"></span></h5>
+                <p>Select the songs to be removed from the playlist</p>
+                <form th:action="@{/music-player/{id}/delete-song(id=${playlist.getId()})}" method="post">
                     <div th:each="song : ${songs}" class="form-check my-1">
                         <input class="form-check-input" name="songId" type="checkbox" th:value="${song.getId()}">
                         <label class="form-check-label" th:text="${song.getName()}"></label>
                     </div>
-                    <button type="submit" class="btn btn-primary my-2">Add Song</button>
+                    <button type="submit" class="btn btn-primary my-2">Delete Song</button>
                 </form>
             </div>
         </div>

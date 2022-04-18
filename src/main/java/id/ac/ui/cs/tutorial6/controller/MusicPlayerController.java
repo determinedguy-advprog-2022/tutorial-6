@@ -112,7 +112,7 @@ public class MusicPlayerController {
         var playlist = playlistService.getPlaylistById(playlistId);
         model.addAttribute(PLAYLIST_STRING, playlist);
         model.addAttribute(SONGS_STRING, playlist.getSongsSet());
-        return "form_add_song_to_playlist";
+        return "form_delete_song_from_playlist";
     }
 
     @PostMapping(value = "/{playlistId}/delete-song")
